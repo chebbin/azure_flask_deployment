@@ -3,11 +3,15 @@ import pandas as pd
 
 app = Flask(__name__)
 
-
 @app.route('/')
-def mainpage():
+def index():
     return render_template('base.html')
 
+df = pd.read_csv ('/home/chevi_ebbin/azure_flask_deployment/ComprehensiveJR.csv')
+@app.route('/data')
+def data(data = df):
+    data = data.sample(15)
+    return render_template('base.html', data = data)
 
 @app.route('/chart')
 def chartpage():
